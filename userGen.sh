@@ -27,14 +27,13 @@ send_email()
 
     read -p "Username: " gmailUname
 
-    read -p "Password: " gmailPass
+    read -s -p "Password: " gmailPass
 
     make_new_config > tmp.txt
 
     make_email > tmp2.txt
 
     ssmtp -C tmp.txt ${uname}"@"${domain} < tmp2.txt
-    echo ""
     echo "Email sent"
     rm tmp.txt
     rm tmp2.txt
@@ -53,7 +52,7 @@ make_new_config()
   echo "# MX records are consulted. Commonly mailhosts are named mail.domain.com"
   echo "mailhub=smtp.gmail.com:587"
   echo "# Where will the mail seem to come from?"
-  echo "#rewriteDomain="
+  echo "#rewriteDomain=Pop_postmaster"
   echo "# The full hostname"
   echo "hostname=pop-os.localdomain"
   echo "# Are users allowed to set their own From: address?"
@@ -141,7 +140,7 @@ do
 
 #generate password
   pass="$(openssl rand -base64 9)"
-  echo "${pass}"
+#  echo "${pass}"
   echo "Password = ************"
 
 #check for user exist
